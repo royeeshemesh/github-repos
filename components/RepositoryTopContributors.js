@@ -1,5 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
+
 
 class RepositoryTopContributors extends Component {
   state = {
@@ -137,5 +139,9 @@ class RepositoryTopContributors extends Component {
     )
   };
 }
+
+RepositoryTopContributors.propTypes = {
+  repository: PropTypes.object.isRequired,
+};
 
 export default RepositoryTopContributors;

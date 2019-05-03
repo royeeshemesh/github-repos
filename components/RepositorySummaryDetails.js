@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const RepositorySummaryDetails = props => {
   const {repository} = props;
@@ -111,6 +112,10 @@ const RepositorySummaryDetails = props => {
     </table>
 
   )
+};
+
+RepositorySummaryDetails.propTypes = {
+  repository: PropTypes.object.isRequired,
 };
 
 export default RepositorySummaryDetails;

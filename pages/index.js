@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import Router, {withRouter} from 'next/router';
 import {AsyncTypeahead} from 'react-bootstrap-typeahead';
 import GithubRepositoryItem from 'components/GithubRepositoryItem';
@@ -11,7 +11,7 @@ let source;
 
 const REPOSITORIES_SEARCH_URI = 'https://api.github.com/search/repositories';
 
-class Index extends React.Component {
+class Index extends Component {
   state = {
     allowNew: false,
     isLoading: false,
@@ -25,7 +25,7 @@ class Index extends React.Component {
     this.props.router.prefetch('/summary');
   }
 
-  handleInputChange = (text, event) => {
+  handleInputChange = text => {
     clearTimeout(this.timeout);
 
     if (!text || text.length < 3) {
