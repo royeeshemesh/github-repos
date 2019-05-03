@@ -31,9 +31,7 @@ class RepositoryProvider extends Component {
   }
 }
 
-/* then make a consumer which will surface it */
 const RepositoryConsumer = RepositoryContext.Consumer;
-
-export {RepositoryContext};
 export {RepositoryConsumer};
+
 export default RepositoryProvider;
