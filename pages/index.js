@@ -12,10 +12,6 @@ let source;
 const REPOSITORIES_SEARCH_URI = 'https://api.github.com/search/repositories';
 
 class Index extends React.Component {
-  static async getInitialProps() {
-    return {}
-  }
-
   state = {
     allowNew: false,
     isLoading: false,
@@ -24,11 +20,6 @@ class Index extends React.Component {
     isHighlightMatchesOn: false,
     perPage: 10,
   };
-  constructor(props) {
-    super(props);
-
-    console.info('constructor');
-  }
 
   componentDidMount() {
     this.props.router.prefetch('/summary');
@@ -96,7 +87,6 @@ class Index extends React.Component {
                   labelKey="name"
                   onInputChange={this.handleInputChange}
                   onChange={repo => {
-                    console.info(repo[0]);
                     set(repo[0]);
                     Router.push(`/summary?id=${repo[0].id}`);
                   }}
