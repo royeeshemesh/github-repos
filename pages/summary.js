@@ -5,7 +5,7 @@ import RepositorySummaryDetails from 'components/RepositorySummaryDetails';
 import {RepositoryConsumer} from 'components/RepositoryProvider';
 import RepositoryTopContributors from "components/RepositoryTopContributors";
 
-export default class Preact extends React.Component {
+class Summary extends React.Component {
   static async getInitialProps(context) {
 
     if (context.res) {
@@ -56,3 +56,5 @@ export default class Preact extends React.Component {
     )
   }
 }
+
+export default Summary;
