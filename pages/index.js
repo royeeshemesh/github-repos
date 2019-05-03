@@ -3,19 +3,18 @@ import Router, {withRouter} from 'next/router';
 import {AsyncTypeahead} from 'react-bootstrap-typeahead';
 import GithubRepositoryItem from 'components/GithubRepositoryItem';
 import axios from 'axios';
-
-import {RepositoryConsumer} from 'components/RepositoryProvider';
+import { connect } from 'react-redux';
+import {onSelectRepository} from 'store/repositories/actions';
 
 const CancelToken = axios.CancelToken;
 let source;
 
 const REPOSITORIES_SEARCH_URI = 'https://api.github.com/search/repositories';
 
+
 class Index extends Component {
   state = {
-    allowNew: false,
     isLoading: false,
-    multiple: false,
     result: {},
     isHighlightMatchesOn: false,
     perPage: 10,
@@ -33,9 +32,7 @@ class Index extends Component {
         source.cancel();
       }
 
-      this.setState({isLoading: false, result: {}});
-
-      return;
+      return this.setState({isLoading: false, result: {}});
     }
 
     this.timeout = setTimeout(this.handleSearch, 350, text);
@@ -64,52 +61,51 @@ class Index extends Component {
     }
   };
 
+  handleOnChange = selected => {
+    const [repository] = selected;
+    this.props.onSelectRepository(repository);
+    Router.push(`/summary?id=${repository.id}`);
+  };
+
   render() {
     const {result, isLoading, isHighlightMatchesOn} = this.state;
     const {items: options} = result;
     return (
-      <RepositoryConsumer>
-
-        {({set}) => {
-          return (
-            <div className="row">
-              <div className="col-md-6">
-                <div className="checkbox">
-                  <label>
-                    <input type="checkbox" value={isHighlightMatchesOn} onChange={() => this.setState({isHighlightMatchesOn: !isHighlightMatchesOn})}/> Highlight matches
-                  </label>
-                </div>
-                <AsyncTypeahead
-                  id="repo-typeahead"
-                  bsSize="large"
-                  isLoading={isLoading}
-                  options={options}
-                  labelKey="name"
-                  onInputChange={this.handleInputChange}
-                  onChange={repo => {
-                    set(repo[0]);
-                    Router.push(`/summary?id=${repo[0].id}`);
-                  }}
-                  onSearch={() => {
-                  }}
-                  placeholder="Search for a Github repository..."
-                  renderMenuItemChildren={(option, props) => (
-                    <GithubRepositoryItem
-                      highlightMatches={isHighlightMatchesOn}
-                      key={option.id}
-                      repository={option}
-                      optionsProps={props}/>
-                  )}
-                />
-              </div>
-            </div>
-          )
-        }}
-
-
-      </RepositoryConsumer>
+      <div className="row">
+        <div className="col-md-6">
+          <div className="checkbox">
+            <label>
+              <input type="checkbox" value={isHighlightMatchesOn} onChange={() => this.setState({isHighlightMatchesOn: !isHighlightMatchesOn})}/> Highlight matches
+            </label>
+          </div>
+          <AsyncTypeahead
+            id="repo-typeahead"
+            bsSize="large"
+            isLoading={isLoading}
+            options={options}
+            labelKey="name"
+            onInputChange={this.handleInputChange}
+            onChange={this.handleOnChange}
+            onSearch={() => {
+            }}
+            placeholder="Search for a Github repository..."
+            renderMenuItemChildren={(option, props) => (
+              <GithubRepositoryItem
+                highlightMatches={isHighlightMatchesOn}
+                key={option.id}
+                repository={option}
+                optionsProps={props}/>
+            )}
+          />
+        </div>
+      </div>
     )
   }
 }
 
-export default withRouter(Index);
+
+const mapDispatchToProps = { onSelectRepository };
+export default connect(
+  null,
+  mapDispatchToProps
+)(withRouter(Index))

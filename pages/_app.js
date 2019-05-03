@@ -1,7 +1,7 @@
-import React from 'react'
-import App, {Container} from 'next/app'
-
-import RepositoryProvider from 'components/RepositoryProvider';
+import React from 'react';
+import App, {Container} from 'next/app';
+import { Provider } from 'react-redux';
+import WithReduxStore from 'lib/WithReduxStore';
 
 class GithubRepositoriesApp extends App {
   static async getInitialProps({Component, ctx}) {
@@ -15,11 +15,11 @@ class GithubRepositoriesApp extends App {
   }
 
   render() {
-    const {Component, pageProps} = this.props;
+    const { Component, pageProps, reduxStore } = this.props;
 
     return (
       <Container>
-        <RepositoryProvider>
+        <Provider store={reduxStore}>
           <div className="container">
             <div className="jumbotron">
               <h1>GitHub repositories search</h1>
@@ -29,10 +29,10 @@ class GithubRepositoriesApp extends App {
               <Component {...pageProps} />
             </div>
           </div>
-        </RepositoryProvider>
+        </Provider>
       </Container>
     )
   }
 }
 
-export default GithubRepositoriesApp;
+export default WithReduxStore(GithubRepositoriesApp);
