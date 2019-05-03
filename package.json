@@ -2,7 +2,7 @@
   "name": "github-repos",
   "version": "1.0.0",
   "scripts": {
-    "dev": "next",
+    "dev": "NODE_PATH=/Users/rshemesh/dev/workspace/private/github-repos next",
     "build": "next build",
     "start": "next start"
   },
@@ -12,9 +12,11 @@
   },
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "isomorphic-unfetch": "^3.0.0",
     "next": "^8.1.0",
     "react": "^16.8.6",
+    "react-bootstrap-typeahead": "^3.4.3",
     "react-dom": "^16.8.6"
   }
 }
