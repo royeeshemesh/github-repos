@@ -1,9 +1,9 @@
 import React, {Fragment} from 'react'
 import Link from 'next/link'
-import RepositorySummaryDetails from 'components/RepositorySummaryDetails';
+import RepositorySummaryDetails from '___components/RepositorySummaryDetails';
 
-import {RepositoryConsumer} from 'components/RepositoryProvider';
-import RepositoryTopContributors from "components/RepositoryTopContributors";
+import {RepositoryConsumer} from '___components/RepositoryProvider';
+import RepositoryTopContributors from "___components/RepositoryTopContributors";
 
 class Summary extends React.Component {
   static async getInitialProps(context) {

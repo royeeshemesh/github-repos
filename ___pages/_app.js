@@ -1,7 +1,7 @@
 import React from 'react'
 import App, {Container} from 'next/app'
 
-import RepositoryProvider from 'components/RepositoryProvider';
+import RepositoryProvider from '___components/RepositoryProvider';
 
 class GithubRepositoriesApp extends App {
   static async getInitialProps({Component, ctx}) {

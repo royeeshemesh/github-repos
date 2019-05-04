@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import Router, {withRouter} from 'next/router';
 import {AsyncTypeahead} from 'react-bootstrap-typeahead';
-import GithubRepositoryItem from 'components/GithubRepositoryItem';
+import GithubRepositoryItem from '___components/GithubRepositoryItem';
 import axios from 'axios';
 
-import {RepositoryConsumer} from 'components/RepositoryProvider';
+import {RepositoryConsumer} from '___components/RepositoryProvider';
 
 const CancelToken = axios.CancelToken;
 let source;

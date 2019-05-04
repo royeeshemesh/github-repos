@@ -1,31 +1,32 @@
 {
-  "name": "github-repos",
-  "version": "1.0.0",
-  "scripts": {
-    "dev": "NODE_PATH=/Users/rshemesh/dev/workspace/private/github-repos next",
-    "build": "next build",
-    "start": "next start",
-    "test": "NODE_PATH=/Users/rshemesh/dev/workspace/private/github-repos jest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.intuit.com:rshemesh/github-repos.git"
-  },
-  "license": "ISC",
+  "name": "app",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "axios": "^0.18.0",
-    "next": "^8.1.0",
     "react": "^16.8.6",
-    "react-bootstrap-typeahead": "^3.4.3",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "3.0.0"
   },
-  "devDependencies": {
-    "@babel/core": "7.3.4",
-    "babel-jest": "24.1.0",
-    "enzyme": "3.4.3",
-    "enzyme-adapter-react-16": "1.2.0",
-    "jest": "24.1.0",
-    "react-addons-test-utils": "15.6.2",
-    "react-test-renderer": "16.4.2"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
