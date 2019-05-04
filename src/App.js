@@ -21,7 +21,7 @@ class GithubRepositoriesApp extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Router>
+        <Router basename={process.env.PUBLIC_URL}>
           <header className="app-header">
           </header>
 
