@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
+import Router, {withRouter} from 'next/router';
 import {AsyncTypeahead} from 'react-bootstrap-typeahead';
 import GithubRepositoryItem from 'src/components/GithubRepositoryItem';
 import axios from 'axios';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import {onSelectRepository} from 'store/repositories/actions';
-import { withRouter } from 'react-router-dom'
 
 const CancelToken = axios.CancelToken;
 let source;
@@ -12,7 +12,7 @@ let source;
 const REPOSITORIES_SEARCH_URI = 'https://api.github.com/search/repositories';
 
 
-class Search extends Component {
+class Index extends Component {
   state = {
     isLoading: false,
     result: {},
@@ -21,7 +21,7 @@ class Search extends Component {
   };
 
   componentDidMount() {
-    // this.props.router.prefetch('/summary');
+    this.props.router.prefetch('/summary');
   }
 
   handleInputChange = text => {
@@ -64,7 +64,7 @@ class Search extends Component {
   handleOnChange = selected => {
     const [repository] = selected;
     this.props.onSelectRepository(repository);
-    this.props.history.push(`/summary?id=${repository.id}`);
+    Router.push(`/summary?id=${repository.id}`);
   };
 
   render() {
@@ -104,8 +104,8 @@ class Search extends Component {
 }
 
 
-const mapDispatchToProps = {onSelectRepository};
+const mapDispatchToProps = { onSelectRepository };
 export default connect(
   null,
   mapDispatchToProps
-)(withRouter(Search))
+)(withRouter(Index))

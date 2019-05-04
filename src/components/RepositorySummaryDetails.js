@@ -6,42 +6,14 @@ const RepositorySummaryDetails = props => {
   const {owner} = repository;
 
   return (
-    <table>
-      {/*language=CSS*/}
-      <style jsx>{`
-
-        table {
-          width: 100%;
-        }
-
-        table tr:not(:first-child) {
-          border-top: 1px solid lightgray;
-        }
-
-        table tr td {
-          padding: 10px 15px;
-        }
-
-        table tr td:first-child {
-          vertical-align: top;
-          padding-left: 0;
-          white-space: nowrap;
-        }
-
-        table tr td:last-child {
-          padding-right: 0;
-        }
-
-      `}</style>
-
-
+    <table className="summary-table">
       <tbody>
       <tr>
         <td>
           <b>Name: </b>
         </td>
         <td>
-          <a target="_blank" href={repository.html_url}>{repository.name} </a>
+          <a target="_blank" href={repository.html_url} rel="noopener noreferrer">{repository.name} </a>
 
           <img
             alt={owner.login}
@@ -60,7 +32,7 @@ const RepositorySummaryDetails = props => {
           <b>Homepage:</b>
         </td>
         <td>
-          <a href={repository.homepage} target="_blank">{repository.homepage}</a>
+          <a href={repository.homepage} target="_blank" rel="noopener noreferrer">{repository.homepage}</a>
         </td>
       </tr>}
 

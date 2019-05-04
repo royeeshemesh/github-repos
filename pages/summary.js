@@ -1,33 +1,28 @@
 import React, {Component} from 'react'
+import Link from 'next/link'
 import RepositoryTopContributors from "src/components/RepositoryTopContributors";
 import RepositorySummaryDetails from "src/components/RepositorySummaryDetails";
 import { connect } from 'react-redux';
-import { Link, withRouter } from "react-router-dom";
 
 class Summary extends Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    console.info(nextProps.repositoryToShow);
-    if (!nextProps.repositoryToShow) {
-      nextProps.history.push('/');
-      return false;
-    }
+  static async getInitialProps(context) {
 
-    return true;
+    if (context.res) {
+      context.res.writeHead(302, {
+        Location: '/'
+      });
+      return context.res.end();
+    }
+    return {}
   }
 
   render() {
-    const {repositoryToShow: repository, history} = this.props;
-
-    if (!repository) {
-      history.push('/');
-      return null;
-    }
-
+    const {repositoryToShow: repository} = this.props;
 
     return (
       <div>
-        <Link to='/'>
-          <button className="btn btn-primary">Back to search</button>
+        <Link prefetch href='/'>
+          <a className="btn btn-primary">Back to search</a>
         </Link>
         <div className="row">
           <div className="col-md-8">
@@ -53,4 +48,4 @@ const mapStateToProps = state => ({ repositoryToShow: state.repositories.reposit
 export default connect(
   mapStateToProps,
   null
-)(withRouter(Summary))
+)(Summary)
