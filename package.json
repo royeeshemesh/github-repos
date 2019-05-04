@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "NODE_PATH=/Users/rshemesh/dev/workspace/private/github-repos next",
-    "build": "next build",
+    "build": "NODE_PATH=/Users/rshemesh/dev/workspace/private/github-repos next build",
+    "export": "NODE_PATH=/Users/rshemesh/dev/workspace/private/github-repos next export",
     "start": "next start",
     "test": "NODE_PATH=/Users/rshemesh/dev/workspace/private/github-repos jest"
   },
