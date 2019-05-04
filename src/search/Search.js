@@ -12,7 +12,7 @@ let source;
 const REPOSITORIES_SEARCH_URI = 'https://api.github.com/search/repositories';
 
 
-class Search extends Component {
+export class Search extends Component {
   state = {
     isLoading: false,
     result: {},
