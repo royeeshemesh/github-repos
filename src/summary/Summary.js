@@ -1,34 +1,16 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types';
 import RepositoryTopContributors from "src/components/RepositoryTopContributors";
 import RepositorySummaryDetails from "src/components/RepositorySummaryDetails";
-import { connect } from 'react-redux';
-import { Link, withRouter } from "react-router-dom";
 
 class Summary extends Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    console.info(nextProps.repositoryToShow);
-    if (!nextProps.repositoryToShow) {
-      nextProps.history.push('/');
-      return false;
-    }
-
-    return true;
-  }
 
   render() {
-    const {repositoryToShow: repository, history} = this.props;
-
-    if (!repository) {
-      history.push('/');
-      return null;
-    }
-
+    const {repositoryToShow: repository} = this.props;
 
     return (
       <div>
-        <Link to='/'>
-          <button className="btn btn-primary">Back to search</button>
-        </Link>
+        <button className="btn btn-primary" onClick={this.props.onBackToSearch}>Back to search</button>
         <div className="row">
           <div className="col-md-8">
             <h3>Repository summary:</h3>
@@ -48,9 +30,16 @@ class Summary extends Component {
   }
 }
 
-const mapStateToProps = state => ({ repositoryToShow: state.repositories.repositoryToShow });
+Summary.propTypes = {
+  repositoryToShow: PropTypes.object.isRequired,
+  onBackToSearch: PropTypes.func.isRequired,
+};
 
-export default connect(
-  mapStateToProps,
-  null
-)(withRouter(Summary))
+export default Summary;
+
+// const mapStateToProps = state => ({ repositoryToShow: state.repositories.repositoryToShow });
+//
+// export default connect(
+//   mapStateToProps,
+//   null
+// )(withRouter(Summary))

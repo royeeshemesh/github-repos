@@ -1,31 +1,19 @@
 import React from 'react';
-import {shallow, render} from 'enzyme';
-import ConnectedSearch, {Search} from 'src/search/Search';
-import configureStore from 'redux-mock-store';
-import {Provider} from 'react-redux';
+import {shallow} from 'enzyme';
+import Search from 'src/search/Search';
 
 describe('Search tests', () => {
-  const initialState = {repositories: {}};
-  const mockStore = configureStore();
-  let store;
+  let wrapper;
 
   beforeEach(() => {
-    store = mockStore(initialState);
-
+    wrapper = shallow(<Search onSelectRepository={()=>{}}/>);
   });
 
   it('shallow renders without crashing', () => {
-    const wrapper = shallow(<ConnectedSearch store={store}/>);
-    expect(wrapper.props('onSelectRepository')).toBeDefined();
-  });
-
-  it('shallow provider renders without crashing', () => {
-    const wrapper = shallow(<Provider store={store}><ConnectedSearch/></Provider>);
     expect(wrapper.props('onSelectRepository')).toBeDefined();
   });
 
   it('shallow renders Search without crashing', () => {
-    const wrapper = shallow(<Search/>);
     expect(wrapper.find('.row')).toHaveLength(1);
   });
 

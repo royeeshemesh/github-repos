@@ -1,10 +1,8 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {AsyncTypeahead} from 'react-bootstrap-typeahead';
 import GithubRepositoryItem from 'src/components/GithubRepositoryItem';
 import axios from 'axios';
-import {connect} from 'react-redux';
-import {onSelectRepository} from 'store/repositories/actions';
-import { withRouter } from 'react-router-dom'
 
 const CancelToken = axios.CancelToken;
 let source;
@@ -64,7 +62,6 @@ export class Search extends Component {
   handleOnChange = selected => {
     const [repository] = selected;
     this.props.onSelectRepository(repository);
-    this.props.history.push(`/summary?id=${repository.id}`);
   };
 
   render() {
@@ -103,9 +100,15 @@ export class Search extends Component {
   }
 }
 
+Search.propTypes = {
+  onSelectRepository: PropTypes.func.isRequired,
+};
 
-const mapDispatchToProps = {onSelectRepository};
-export default connect(
-  null,
-  mapDispatchToProps
-)(withRouter(Search))
+export default Search;
+
+
+// const mapDispatchToProps = {onSelectRepository};
+// export default connect(
+//   null,
+//   mapDispatchToProps
+// )(withRouter(Search))
