@@ -7,7 +7,7 @@ import axios from 'axios';
 const CancelToken = axios.CancelToken;
 let source;
 
-const REPOSITORIES_SEARCH_URI = 'https://api.github.com/search/repositories';
+const REPOSITORIES_SEARCH_URI = 'http://localhost:8080/repositories';
 
 
 export class Search extends Component {
@@ -17,10 +17,6 @@ export class Search extends Component {
     isHighlightMatchesOn: false,
     perPage: 10,
   };
-
-  componentDidMount() {
-    // this.props.router.prefetch('/summary');
-  }
 
   handleInputChange = text => {
     clearTimeout(this.timeout);
@@ -52,9 +48,11 @@ export class Search extends Component {
 
       this.setState({
         isLoading: false,
-        result: data,
+        result: data.result,
+        time: data.elapsedTime,
       });
     } catch (e) {
+      console.info(e);
       console.error(e);
     }
   };
@@ -74,7 +72,9 @@ export class Search extends Component {
             <label>
               <input type="checkbox" value={isHighlightMatchesOn} onChange={() => this.setState({isHighlightMatchesOn: !isHighlightMatchesOn})}/> Highlight matches
             </label>
+            {(this.state.result && this.state.time) && <label> Search time: {(this.state.time/1000).toFixed(3)}ms</label>}
           </div>
+
           <AsyncTypeahead
             id="repo-typeahead"
             bsSize="large"
