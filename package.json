@@ -22,7 +22,7 @@
     "test:ci": "CI=true npm run test -- --coverage",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build -o public"
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
