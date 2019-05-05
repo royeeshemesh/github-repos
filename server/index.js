@@ -36,21 +36,28 @@ const startServer = async () => {
   app.get('/repositories', async (req, res) => {
     const startTime = Date.now();
     const queryUrl = req.originalUrl;
-    console.info(queryUrl);
 
-    const fromCache = await _redisClient.get(queryUrl);
+    try {
+      const fromCache = await _redisClient.get(queryUrl);
 
-    if (fromCache) {
-      const elapsedTime = Date.now() - startTime;
-      return res.status(200).json({result: JSON.parse(fromCache), elapsedTime});
+      if (fromCache) {
+        const elapsedTime = Date.now() - startTime;
+        return res.status(200).json({result: JSON.parse(fromCache), elapsedTime});
+      }
+    } catch (e) {
+      console.error('redis error');
     }
 
     const gihubUrl = `${REPOSITORIES_SEARCH_URI}${queryUrl}`;
     try {
       const result = await axios.get(gihubUrl);
 
-      await _redisClient.set(queryUrl, JSON.stringify(result.data));
-      await _redisClient.expire(queryUrl, redisConf.ttl);
+      try {
+        await _redisClient.set(queryUrl, JSON.stringify(result.data));
+        await _redisClient.expire(queryUrl, redisConf.ttl);
+      } catch (e) {
+        console.error('redis error');
+      }
 
       const elapsedTime = Date.now() - startTime;
       res.status(200).json({result: result.data, elapsedTime});
